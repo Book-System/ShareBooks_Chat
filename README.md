@@ -53,7 +53,9 @@ oracledb.getConnection({
 - cmd창을 통해 app.js를 실행시킨후 cmd창을 보게되면 오라클의 접속을 알 수 있다.
 
 ### 6.문제해결
-- socket.io에 Oracle DB를 연결함으로써 데이터 보존에 성공
+- socket.io에 Oracle DB를 연결함으로써 데이터 보존을 할 수 있게 되었다
+- **[적용 후 사진]**
+- ![chat cmd](https://user-images.githubusercontent.com/85853146/146928322-a86d0d68-70b4-4ad7-b686-322cec81e938.png)
 
 
 ## socket.io 데이터 송신시의 문제
