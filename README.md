@@ -57,10 +57,9 @@ oracledb.getConnection({
 - **[적용 후 사진]**
 - ![chat cmd](https://user-images.githubusercontent.com/85853146/146928322-a86d0d68-70b4-4ad7-b686-322cec81e938.png)
 
+---
 
 ## socket.io 데이터 송신시의 문제
-
----
 
 ### 1.문제정의
 - socket.io를 이용한 vue, 프론트에서 신호를 보내줄 때 신호가 구분이 되지않았다.
@@ -185,3 +184,39 @@ if (data.data.code === 4) {
 ### 6.문제해결
 - 신호에 구분할수 있는 변수 code를 심어주어 이를 기준으로 해당 신호를 판별 후 알맞는 기능이 실행 되었다.
 
+---
+
+## 수정해 나갈점
+
+```
+if (data.data.code === 4) {
+app.io.to(data.data.room).emit('subscribe', {
+    room: data.data.room,
+    room1: data.data.room1,
+    room2: data.data.room2,
+    userid: data.data.userid,
+    username: data.data.username,
+    regdate: data.data.regdate,
+    flag: data.data.flag,
+})
+conn.execute("insert into CHAT(CHATING,USERID,CODE,ROOM,ROOM1,ROOM2,REGDATE,FLAG) 
+values('" + chat + "','" + id + "','" + code + "','" + room + "','" + room1 + "','" + room2 + "','" + regdate + "','" + flag + "')", function(err, result) {
+    if (err) {
+        console.log("글저장중 오류가 발생했습니다");
+    } else {
+        console.log("글저장 결과 :", result);
+    }
+})
+}
+```
+
+### 더 Restful 하게
+- 통신을 위한 socket.io를 이용하였으나 다소 아쉬운점이 보인다.
+- socket의 신호에 신호만을 보낸것이 아닌 데이터,값 을 보내 해당값을 가지고 가공한것
+- Spring을 이용한 프로젝트기에 기존 Rest api에 기능을 추가했더라면 어땠을까 하는 생각이 든다
+
+### 어떻게 ??
+- 데이터의 추가,삭제,수정 등 일련의 과정들을 모두 Rest api로 기능을 구현한 뒤
+- socket의 신호에 맞춰 해당 신호의 상태에 따라 필요한 기능을 호출했었더라면 조금더 간략하면서도 메모리를 덜 사용하는 clean code가 될 수 있었을 것 같다
+- 즉, socket은 단순히 신호용 1,2,3,4 와같은 구분가능한 수로 표현을 하고
+- 해당 신호에맞춰 신호에 맞는 Rest api 기능을 호출 한다는 것.
