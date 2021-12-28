@@ -16,7 +16,7 @@
 - Node.js에 DB인 Oracle을 결합하여 DB를 통해 데이터의 입력,출력을 하는법을 찾았다.
 
 ### 5.조사방법구현
-```
+``` JavaScript
 var oracledb = require('oracledb');
 oracledb.autoCommit = true;
 
@@ -74,7 +74,7 @@ oracledb.getConnection({
 - 해당 신호에 code 혹은 flag같은 구분자 개념의 변수를 넣어 보내주고 백에서 해당 변수를 판단해 원하는 상태를 받게끔 하려 했다.
 
 ### 5.조사방법구현
-```
+``` JavaScript
 leaveRoom(){
     this.$socket.emit('publish',{
         data: { 
@@ -111,7 +111,7 @@ join(){
 ```
 - 프론트에서는 각 신호의 상태 별로 다른 code를 넣어 주었고
 
-```
+``` JavaScript
 //코드 2 - 방 가입
 if (data.data.code === 2) {
     socket.join(room);
@@ -188,7 +188,7 @@ if (data.data.code === 4) {
 
 ## 수정해 나갈점
 
-```
+``` JavaScript
 if (data.data.code === 4) {
 app.io.to(data.data.room).emit('subscribe', {
     room: data.data.room,
